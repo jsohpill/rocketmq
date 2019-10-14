@@ -142,6 +142,7 @@ public class AllocateMappedFileService extends ServiceThread {
 
     /**
      * Only interrupted by the external thread, will return false
+     * 只有外部线程可以中断，将会返回false。
      */
     private boolean mmapOperation() {
         boolean isSuccess = false;
@@ -184,6 +185,7 @@ public class AllocateMappedFileService extends ServiceThread {
                 }
 
                 // pre write mappedFile
+                // 提前写mappedFile，调用warmMappedFile方法进行预热
                 if (mappedFile.getFileSize() >= this.messageStore.getMessageStoreConfig()
                     .getMappedFileSizeCommitLog()
                     &&

@@ -486,6 +486,8 @@ public class MappedFile extends ReferenceResource {
         ByteBuffer byteBuffer = this.mappedByteBuffer.slice();
         int flush = 0;
         long time = System.currentTimeMillis();
+
+        // 每个4K一页的数据，在开头写入一个byte 0的数据，这样每一页都不会产生缺页中断。
         for (int i = 0, j = 0; i < this.fileSize; i += MappedFile.OS_PAGE_SIZE, j++) {
             byteBuffer.put(i, (byte) 0);
             // force flush when flush disk type is sync
