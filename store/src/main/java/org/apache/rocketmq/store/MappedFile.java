@@ -503,6 +503,7 @@ public class MappedFile extends ReferenceResource {
                 log.info("j={}, costTime={}", j, System.currentTimeMillis() - time);
                 time = System.currentTimeMillis();
                 try {
+                    // 这里sleep(0)，让线程让出 CPU 权限，供其他更高优先级的线程执行，此线程从运行runnbale中转换为就绪ready
                     Thread.sleep(0);
                 } catch (InterruptedException e) {
                     log.error("Interrupted", e);
